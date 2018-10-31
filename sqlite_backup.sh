@@ -20,9 +20,10 @@ for DB_FILE in "$@"
 do
   BACK_FILE="$DB_FILE.$DATE"
   GZIP_FILE="$BACK_FILE.gz"
+  BACKBLAZE_FILE="$(basename $DB_FILE)/$(basename $GZIP_FILE)"
   echo "Compressing $BACK_FILE..."
   gzip -9 $BACK_FILE
-  echo "Backing up to Backblaze"
-  b2 upload-file james-db-backup "$GZIP_FILE" "$(basename DB_FILE)/$(basename GZIP_FILE)" > /dev/null
+  echo "Backing up to Backblaze as $BACKBLAZE_FILE..."
+  b2 upload-file james-db-backup $GZIP_FILE $BACKBLAZE_FILE > /dev/null
   rm $GZIP_FILE
 done

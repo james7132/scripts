@@ -23,6 +23,6 @@ do
   echo "Compressing $BACK_FILE..."
   gzip -9 $BACK_FILE
   echo "Backing up to Backblaze"
-  b2 upload-file james-db-backup "$GZIP_FILE" "$DB_FILE/$GZIP_FILE" > /dev/null
+  b2 upload-file james-db-backup "$GZIP_FILE" "$(basename DB_FILE)/$(basename GZIP_FILE)" > /dev/null
   rm $GZIP_FILE
 done

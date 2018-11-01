@@ -21,6 +21,8 @@ do
   BACK_FILE="$DB_FILE.$DATE"
   GZIP_FILE="$BACK_FILE.gz"
   BACKBLAZE_FILE="$(basename $DB_FILE)/$(basename $GZIP_FILE)"
+  echo "Vacuuming $BACK_FILE..."
+  sqlite3 $DB_FILE "vacuum;"
   echo "Compressing $BACK_FILE..."
   gzip -9 $BACK_FILE
   echo "Backing up to Backblaze as $BACKBLAZE_FILE..."
